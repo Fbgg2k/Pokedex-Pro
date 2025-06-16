@@ -29,17 +29,29 @@ export default function PaginationControls({ totalPages, currentPage, baseUrl = 
   if (totalPages <= 1) return null;
 
   return (
-    <div className="flex items-center justify-center space-x-4 py-8">
-      <Button asChild variant="outline" size="lg" disabled={!hasPreviousPage} className={cn(!hasPreviousPage && "opacity-50 cursor-not-allowed")}>
+    <div className="flex flex-col sm:flex-row items-center justify-center sm:space-x-4 space-y-2 sm:space-y-0 py-8">
+      <Button 
+        asChild 
+        variant="outline" 
+        size="lg" 
+        disabled={!hasPreviousPage} 
+        className={cn(!hasPreviousPage && "opacity-50 cursor-not-allowed", "w-full sm:w-auto")}
+      >
         <Link href={createPageURL(currentPage - 1)} scroll={false} aria-disabled={!hasPreviousPage} tabIndex={!hasPreviousPage ? -1 : undefined}>
           <ChevronLeft className="mr-2 h-5 w-5" />
           Previous
         </Link>
       </Button>
-      <span className="text-lg font-medium text-foreground">
+      <span className="text-lg font-medium text-foreground order-first sm:order-none">
         Page {currentPage} of {totalPages}
       </span>
-      <Button asChild variant="outline" size="lg" disabled={!hasNextPage} className={cn(!hasNextPage && "opacity-50 cursor-not-allowed")}>
+      <Button 
+        asChild 
+        variant="outline" 
+        size="lg" 
+        disabled={!hasNextPage} 
+        className={cn(!hasNextPage && "opacity-50 cursor-not-allowed", "w-full sm:w-auto")}
+      >
         <Link href={createPageURL(currentPage + 1)} scroll={false} aria-disabled={!hasNextPage} tabIndex={!hasNextPage ? -1 : undefined}>
           Next
           <ChevronRight className="ml-2 h-5 w-5" />

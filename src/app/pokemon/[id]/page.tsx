@@ -124,7 +124,7 @@ export default async function PokemonPage({ params }: PokemonPageProps) {
 
         <CardContent className="p-6 md:p-8">
           <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-6">
+            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 mb-6">
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="stats">Stats</TabsTrigger>
               <TabsTrigger value="abilities">Abilities</TabsTrigger>
