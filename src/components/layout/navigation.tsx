@@ -2,9 +2,10 @@
 "use client";
 
 import Link from 'next/link';
-import { Star, Home } from 'lucide-react'; // Using Home icon for Pokedex Pro title for fun
+import { Star, Home } from 'lucide-react'; 
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { ThemeSwitcher } from './theme-switcher';
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -24,7 +25,7 @@ export default function Navigation() {
           </svg>
           <span className="font-bold text-xl font-headline">Pokedex Pro</span>
         </Link>
-        <nav className="flex items-center space-x-2 sm:space-x-4">
+        <nav className="flex items-center space-x-1 sm:space-x-2">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -39,6 +40,7 @@ export default function Navigation() {
               <span className="hidden sm:inline">{item.label}</span>
             </Link>
           ))}
+          <ThemeSwitcher />
         </nav>
       </div>
     </header>
