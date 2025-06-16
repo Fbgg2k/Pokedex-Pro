@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import FavoriteToggleButton from '@/components/pokemon/favorite-toggle-button';
 import Link from 'next/link';
-import { ArrowLeft, Maximize, Minimize, Weight, Ruler, Zap, Shield, Sparkles, Brain, BookOpen } from 'lucide-react';
+import { ArrowLeft, Maximize, Minimize, Weight, Ruler, Zap, Shield, Sparkles, Brain, BookOpen, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
