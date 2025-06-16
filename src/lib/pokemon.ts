@@ -12,28 +12,30 @@ export function getPokemonImageUrl(id: number | string): string {
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 }
 
-export const POKEMON_TYPES_COLORS: Record<string, string> = {
-  normal: 'bg-gray-400', // Normal - Cinza
-  fire: 'bg-red-500', // Fogo - Vermelho
-  water: 'bg-blue-500', // Água - Azul
-  electric: 'bg-yellow-400', // Elétrico - Amarelo
-  grass: 'bg-green-500', // Grama - Verde
-  ice: 'bg-blue-300', // Gelo - Azul Claro
-  fighting: 'bg-red-700', // Lutador - Vermelho Escuro
-  poison: 'bg-purple-500', // Venenoso - Roxo
-  ground: 'bg-yellow-600', // Terra - Marrom Amarelado
-  flying: 'bg-indigo-400', // Voador - Azul Arroxeado
-  psychic: 'bg-pink-500', // Psíquico - Rosa
-  bug: 'bg-green-700', // Inseto - Verde Lima
-  rock: 'bg-yellow-700', // Pedra - Marrom Claro
-  ghost: 'bg-purple-700', // Fantasma - Roxo Escuro
-  dragon: 'bg-indigo-700', // Dragão - Índigo
-  dark: 'bg-gray-700', // Sombrio - Cinza Escuro
-  steel: 'bg-gray-500', // Aço - Prata
-  fairy: 'bg-pink-300', // Fada - Rosa Claro
+export const POKEMON_TYPE_CLASSES: Record<string, { base: string; hover: string; textClass: string }> = {
+  normal: { base: 'bg-stone-400', hover: 'hover:bg-stone-500', textClass: 'text-white' },
+  fire: { base: 'bg-red-500', hover: 'hover:bg-red-600', textClass: 'text-white' },
+  water: { base: 'bg-rose-400', hover: 'hover:bg-rose-500', textClass: 'text-white' }, // Cor ajustada conforme imagem de Squirtle
+  electric: { base: 'bg-yellow-400', hover: 'hover:bg-yellow-500', textClass: 'text-neutral-800' },
+  grass: { base: 'bg-green-500', hover: 'hover:bg-green-600', textClass: 'text-white' },
+  ice: { base: 'bg-cyan-400', hover: 'hover:bg-cyan-500', textClass: 'text-neutral-800' },
+  fighting: { base: 'bg-orange-600', hover: 'hover:bg-orange-700', textClass: 'text-white' },
+  poison: { base: 'bg-purple-500', hover: 'hover:bg-purple-600', textClass: 'text-white' },
+  ground: { base: 'bg-yellow-600', hover: 'hover:bg-yellow-700', textClass: 'text-white' },
+  flying: { base: 'bg-indigo-400', hover: 'hover:bg-indigo-500', textClass: 'text-white' },
+  psychic: { base: 'bg-pink-500', hover: 'hover:bg-pink-600', textClass: 'text-white' },
+  bug: { base: 'bg-lime-500', hover: 'hover:bg-lime-600', textClass: 'text-neutral-800' },
+  rock: { base: 'bg-amber-700', hover: 'hover:bg-amber-800', textClass: 'text-white' }, // Alterado de yellow-700 para amber para diferenciar de ground
+  ghost: { base: 'bg-purple-700', hover: 'hover:bg-purple-800', textClass: 'text-white' },
+  dragon: { base: 'bg-indigo-700', hover: 'hover:bg-indigo-800', textClass: 'text-white' },
+  dark: { base: 'bg-neutral-700', hover: 'hover:bg-neutral-800', textClass: 'text-white' },
+  steel: { base: 'bg-slate-500', hover: 'hover:bg-slate-600', textClass: 'text-white' },
+  fairy: { base: 'bg-pink-400', hover: 'hover:bg-pink-500', textClass: 'text-white' },
+  unknown: { base: 'bg-gray-500', hover: 'hover:bg-gray-600', textClass: 'text-white' }, // Fallback
 };
 
-export const ALL_POKEMON_TYPES = Object.keys(POKEMON_TYPES_COLORS);
+export const ALL_POKEMON_TYPES = Object.keys(POKEMON_TYPE_CLASSES).filter(type => type !== 'unknown');
+
 
 async function fetchPokemonIdsAndNamesByType(typeName: string): Promise<{id: number, name: string, url: string}[]> {
   try {
@@ -63,7 +65,6 @@ export async function fetchPokemonList(
     let combinedPokemonData: {id: number, name: string, url: string}[] = [];
     const seenPokemonIds = new Set<number>();
 
-    // Fetch all Pokémon for each selected type
     const promises = selectedTypes.map(type => fetchPokemonIdsAndNamesByType(type));
     const results = await Promise.all(promises);
 
@@ -76,13 +77,7 @@ export async function fetchPokemonList(
       }
     }
     
-    // If more than one type is selected, we need to ensure the Pokémon matches ALL selected types (AND logic)
-    // For OR logic (matches ANY type), the current combinedPokemonData is fine.
-    // The prompt "o usuario pode escolher ate tres tipos para que a busca seja mais dinamica e simples"
-    // suggests OR logic is simpler and likely intended. Let's proceed with OR logic.
-
     const totalCount = combinedPokemonData.length;
-    // Sort by ID to maintain a consistent order if types are fetched in different orders
     combinedPokemonData.sort((a, b) => a.id - b.id); 
     
     const paginatedData = combinedPokemonData.slice(offset, offset + limit);
@@ -100,7 +95,6 @@ export async function fetchPokemonList(
     };
 
   } else {
-    // Original behavior: fetch all paginated
     try {
       const response = await fetch(`${POKEAPI_BASE_URL}/pokemon?limit=${limit}&offset=${offset}`);
       if (!response.ok) {

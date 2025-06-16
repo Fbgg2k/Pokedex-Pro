@@ -6,7 +6,7 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Filter, X } from 'lucide-react';
-import { POKEMON_TYPES_COLORS, capitalize, ALL_POKEMON_TYPES } from '@/lib/pokemon';
+import { POKEMON_TYPE_CLASSES, capitalize, ALL_POKEMON_TYPES } from '@/lib/pokemon';
 import { cn } from '@/lib/utils';
 
 export default function TypeFilterControls() {
@@ -24,7 +24,6 @@ export default function TypeFilterControls() {
     } else {
       setSelectedTypes(new Set());
     }
-    // Decide if type buttons should be initially shown based on if filters are active
     if (typesFromParams && typesFromParams.length > 0) {
       setShowTypeButtons(true);
     }
@@ -42,13 +41,11 @@ export default function TypeFilterControls() {
       if (newSelectedTypes.size < 3) {
         newSelectedTypes.add(type);
       } else {
-        // Optionally, provide feedback that max 3 types can be selected
-        // For now, just don't add if already 3.
         alert("Você pode selecionar no máximo 3 tipos.");
         return; 
       }
     }
-    setSelectedTypes(newSelectedTypes); // Optimistic update for UI responsiveness
+    setSelectedTypes(newSelectedTypes);
     updateSearchParams(newSelectedTypes);
   };
 
@@ -59,7 +56,6 @@ export default function TypeFilterControls() {
     } else {
       params.delete('types');
     }
-    // Reset page to 1 when filters change
     params.set('page', '1'); 
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
@@ -67,7 +63,6 @@ export default function TypeFilterControls() {
   const clearFilters = () => {
     setSelectedTypes(new Set());
     updateSearchParams(new Set());
-    // setShowTypeButtons(false); // Keep open if user wants to select new types
   };
 
   return (
@@ -92,22 +87,25 @@ export default function TypeFilterControls() {
           </CardHeader>
           <CardContent>
             <div className="flex flex-wrap gap-2 justify-center">
-              {ALL_POKEMON_TYPES.map((type) => (
-                <Button
-                  key={type}
-                  variant={'outline'}
-                  onClick={() => handleTypeSelect(type)}
-                  className={cn(
-                    "transition-all duration-200 ease-in-out transform hover:scale-105 px-4 py-2 text-sm rounded-full border-2 shadow-sm",
-                    selectedTypes.has(type) 
-                      ? `${POKEMON_TYPES_COLORS[type] || 'bg-primary'} text-primary-foreground border-transparent shadow-md hover:${POKEMON_TYPES_COLORS[type] || 'bg-primary'}/90`
-                      : `border-gray-300 dark:border-gray-600 hover:border-primary/70 hover:bg-accent/10 text-foreground`
-                  )}
-                  aria-pressed={selectedTypes.has(type)}
-                >
-                  {capitalize(type)}
-                </Button>
-              ))}
+              {ALL_POKEMON_TYPES.map((type) => {
+                const typeClasses = POKEMON_TYPE_CLASSES[type] || POKEMON_TYPE_CLASSES.unknown;
+                return (
+                  <Button
+                    key={type}
+                    variant={'outline'}
+                    onClick={() => handleTypeSelect(type)}
+                    className={cn(
+                      "transition-all duration-200 ease-in-out transform hover:scale-105 px-4 py-2 text-sm rounded-full border-2 shadow-sm",
+                      selectedTypes.has(type) 
+                        ? `${typeClasses.base} ${typeClasses.textClass} ${typeClasses.hover} border-transparent shadow-md`
+                        : `border-gray-300 dark:border-gray-600 hover:border-primary/70 hover:bg-accent/10 text-foreground`
+                    )}
+                    aria-pressed={selectedTypes.has(type)}
+                  >
+                    {capitalize(type)}
+                  </Button>
+                );
+              })}
             </div>
              {selectedTypes.size === 3 && (
               <p className="text-center text-sm text-muted-foreground mt-4">

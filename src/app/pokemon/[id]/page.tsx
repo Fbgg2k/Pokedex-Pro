@@ -1,12 +1,12 @@
 
-import { fetchPokemonDetails, fetchPokemonSpecies, capitalize, POKEMON_TYPES_COLORS, getPokemonImageUrl } from '@/lib/pokemon';
+import { fetchPokemonDetails, fetchPokemonSpecies, capitalize, POKEMON_TYPE_CLASSES, getPokemonImageUrl } from '@/lib/pokemon';
 import type { PokemonDetails as PokemonDetailsType, PokemonSpecies as PokemonSpeciesType, FlavorTextEntry } from '@/lib/types';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import FavoriteToggleButton from '@/components/pokemon/favorite-toggle-button';
 import Link from 'next/link';
-import { ArrowLeft, Maximize, Minimize, Weight, Ruler, Zap, Shield, Sparkles, Brain, BookOpen, Home } from 'lucide-react';
+import { ArrowLeft, Maximize, Weight, Ruler, Zap, Shield, Sparkles, Brain, BookOpen, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
@@ -63,7 +63,7 @@ export default async function PokemonPage({ params }: PokemonPageProps) {
   const mainImageUrl = pokemon.sprites.other?.['official-artwork']?.front_default || pokemon.sprites.front_default || getPokemonImageUrl(pokemon.id);
   const englishFlavorTexts = species?.flavor_text_entries
     .filter((entry: FlavorTextEntry) => entry.language.name === 'en')
-    .slice(0, 3) // Take first 3 unique descriptions
+    .slice(0, 3) 
     .map(entry => entry.flavor_text.replace(/[\n\f\r]/g, " ")) || [];
   
   const genus = species?.genera?.find(g => g.language.name === 'en')?.genus || 'Unknown Pokémon';
@@ -95,14 +95,17 @@ export default async function PokemonPage({ params }: PokemonPageProps) {
               <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary mb-1 text-center md:text-left">{capitalize(pokemon.name)}</h1>
               <p className="text-lg text-muted-foreground mb-4 text-center md:text-left">{genus}</p>
               <div className="flex space-x-2 justify-center md:justify-start">
-                {pokemon.types.map(typeInfo => (
-                  <Badge
-                    key={typeInfo.type.name}
-                    className={`${POKEMON_TYPES_COLORS[typeInfo.type.name] || 'bg-gray-500'} text-white px-3 py-1 text-sm shadow-md border-transparent`}
-                  >
-                    {capitalize(typeInfo.type.name)}
-                  </Badge>
-                ))}
+                {pokemon.types.map(typeInfo => {
+                  const typeClasses = POKEMON_TYPE_CLASSES[typeInfo.type.name.toLowerCase()] || POKEMON_TYPE_CLASSES.unknown;
+                  return (
+                    <Badge
+                      key={typeInfo.type.name}
+                      className={`${typeClasses.base} ${typeClasses.textClass} px-3 py-1 text-sm shadow-md border-transparent`}
+                    >
+                      {capitalize(typeInfo.type.name)}
+                    </Badge>
+                  );
+                })}
               </div>
             </div>
             <div className="relative aspect-square flex items-center justify-center p-4 md:p-2">
@@ -204,7 +207,6 @@ export default async function PokemonPage({ params }: PokemonPageProps) {
                     <div key={abilityInfo.ability.name} className="p-3 bg-muted/50 rounded-md">
                       <h3 className="font-semibold text-md text-foreground">{capitalize(abilityInfo.ability.name.replace('-', ' '))}</h3>
                       {abilityInfo.is_hidden && <Badge variant="outline" className="mt-1 text-xs border-accent text-accent">Hidden Ability</Badge>}
-                      {/* TODO: Fetch and display ability description */}
                     </div>
                   ))}
                 </CardContent>
