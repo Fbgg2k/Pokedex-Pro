@@ -13,24 +13,24 @@ export function getPokemonImageUrl(id: number | string): string {
 }
 
 export const POKEMON_TYPES_COLORS: Record<string, string> = {
-  normal: 'bg-gray-400',
-  fire: 'bg-red-500',
-  water: 'bg-blue-500',
-  electric: 'bg-yellow-400',
-  grass: 'bg-green-500',
-  ice: 'bg-blue-300',
-  fighting: 'bg-red-700',
-  poison: 'bg-purple-500',
-  ground: 'bg-yellow-600',
-  flying: 'bg-indigo-400',
-  psychic: 'bg-pink-500',
-  bug: 'bg-green-700',
-  rock: 'bg-yellow-700',
-  ghost: 'bg-purple-700',
-  dragon: 'bg-indigo-700',
-  dark: 'bg-gray-700',
-  steel: 'bg-gray-500',
-  fairy: 'bg-pink-300',
+  normal: 'bg-gray-400', // Normal - Cinza
+  fire: 'bg-red-500', // Fogo - Vermelho
+  water: 'bg-blue-500', // Água - Azul
+  electric: 'bg-yellow-400', // Elétrico - Amarelo
+  grass: 'bg-green-500', // Grama - Verde
+  ice: 'bg-blue-300', // Gelo - Azul Claro
+  fighting: 'bg-red-700', // Lutador - Vermelho Escuro
+  poison: 'bg-purple-500', // Venenoso - Roxo
+  ground: 'bg-yellow-600', // Terra - Marrom Amarelado
+  flying: 'bg-indigo-400', // Voador - Azul Arroxeado
+  psychic: 'bg-pink-500', // Psíquico - Rosa
+  bug: 'bg-green-700', // Inseto - Verde Lima
+  rock: 'bg-yellow-700', // Pedra - Marrom Claro
+  ghost: 'bg-purple-700', // Fantasma - Roxo Escuro
+  dragon: 'bg-indigo-700', // Dragão - Índigo
+  dark: 'bg-gray-700', // Sombrio - Cinza Escuro
+  steel: 'bg-gray-500', // Aço - Prata
+  fairy: 'bg-pink-300', // Fada - Rosa Claro
 };
 
 export const ALL_POKEMON_TYPES = Object.keys(POKEMON_TYPES_COLORS);

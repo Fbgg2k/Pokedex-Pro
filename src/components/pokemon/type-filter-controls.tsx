@@ -98,10 +98,10 @@ export default function TypeFilterControls() {
                   variant={'outline'}
                   onClick={() => handleTypeSelect(type)}
                   className={cn(
-                    "transition-all duration-200 ease-in-out transform hover:scale-105 px-4 py-2 text-sm rounded-full border-2",
+                    "transition-all duration-200 ease-in-out transform hover:scale-105 px-4 py-2 text-sm rounded-full border-2 shadow-sm",
                     selectedTypes.has(type) 
                       ? `${POKEMON_TYPES_COLORS[type] || 'bg-primary'} text-primary-foreground border-transparent shadow-md hover:${POKEMON_TYPES_COLORS[type] || 'bg-primary'}/90`
-                      : `border-gray-300 dark:border-gray-600 hover:border-primary/70 hover:bg-accent/50 text-foreground`
+                      : `border-gray-300 dark:border-gray-600 hover:border-primary/70 hover:bg-accent/10 text-foreground`
                   )}
                   aria-pressed={selectedTypes.has(type)}
                 >

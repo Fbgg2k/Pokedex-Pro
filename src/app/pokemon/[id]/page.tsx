@@ -98,7 +98,7 @@ export default async function PokemonPage({ params }: PokemonPageProps) {
                 {pokemon.types.map(typeInfo => (
                   <Badge
                     key={typeInfo.type.name}
-                    className={`${POKEMON_TYPES_COLORS[typeInfo.type.name] || 'bg-gray-500'} text-white px-3 py-1 text-sm shadow-md`}
+                    className={`${POKEMON_TYPES_COLORS[typeInfo.type.name] || 'bg-gray-500'} text-white px-3 py-1 text-sm shadow-md border-transparent`}
                   >
                     {capitalize(typeInfo.type.name)}
                   </Badge>
