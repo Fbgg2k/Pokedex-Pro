@@ -1,4 +1,32 @@
-# Pokedex Pro (Firebase Studio Project)
+---
+
+## 📦 Pokedex Pro
+
+**Pokedex Pro** é uma aplicação moderna construída com **Next.js** e **React**, desenvolvida para oferecer uma experiência fluida e intuitiva na exploração de dados de Pokémon.
+
+### 🚀 Tecnologias e Arquitetura
+
+* **Next.js App Router**: utilizado para navegação otimizada com suporte a Server Components, melhorando o desempenho da aplicação.
+* **TypeScript**: adotado em todo o projeto para garantir segurança de tipos, clareza e facilidade de manutenção.
+* **Tailwind CSS**: utilizado para estilização rápida e responsiva da interface.
+* **ShadCN UI**: fornece componentes reutilizáveis e personalizáveis com sistema de temas consistente.
+* **Zustand**: gerencia eficientemente o estado no cliente, como favoritos e filtros.
+* **PokeAPI**: os dados são obtidos de forma assíncrona via `fetch`, garantindo leveza e simplicidade no consumo da API.
+
+### ⚙️ Padrões de Código
+
+* Componentes funcionais e React Hooks.
+* Nomenclatura clara e consistente.
+* Design modular, com foco em reutilização e escalabilidade.
+* Manipulação de erros implementada tanto em nível de página quanto de componente.
+
+### 💡 Foco no Usuário
+
+A aplicação é responsiva, acessível e visualmente agradável, garantindo uma boa experiência em diferentes dispositivos.
+
+---
+
+# Pokedex Pro
 
 ## Instalação e Execução
 
@@ -69,13 +97,3 @@ yarn start
 ---
 
 Se encontrar problemas, consulte a documentação do Next.js ou abra uma issue neste repositório.
-
-This project is a modern Pokedex application built with Next.js and React, designed to provide a seamless user experience for exploring Pokémon data.
-Our approach leverages Next.js App Router for optimized routing and Server Components for improved performance.
-We utilize TypeScript for type safety and maintainability throughout the codebase.
-Styling is achieved using Tailwind CSS for rapid UI development, complemented by ShadCN UI for pre-built, customizable components and a consistent theming system.
-Client-side state, such as managing favorite Pokémon, is handled efficiently with Zustand.
-Data is fetched asynchronously from the PokeAPI using native `fetch`.
-The coding style emphasizes functional components, React Hooks, clear naming conventions, and modular component design for reusability.
-We prioritize creating responsive, accessible, and aesthetically pleasing interfaces.
-Error handling is implemented at both page and component levels to ensure a robust application.
