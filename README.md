@@ -1,5 +1,3 @@
----
-
 ## 📦 Pokedex Pro
 
 **Pokedex Pro** é uma aplicação moderna construída com **Next.js** e **React**, desenvolvida para oferecer uma experiência fluida e intuitiva na exploração de dados de Pokémon.
@@ -23,8 +21,6 @@
 ### 💡 Foco no Usuário
 
 A aplicação é responsiva, acessível e visualmente agradável, garantindo uma boa experiência em diferentes dispositivos.
-
----
 
 # Pokedex Pro
 
